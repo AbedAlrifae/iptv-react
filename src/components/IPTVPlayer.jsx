@@ -1,111 +1,93 @@
-import React, { useState, useEffect } from "react";
-import Hls from "hls.js";
+import React, { useEffect, useState, useRef } from 'react';
+import Hls from 'hls.js';
 
 const IPTVPlayer = () => {
     const [channels, setChannels] = useState([]);
-    const [currentUrl, setCurrentUrl] = useState(null);
-  
+    const [loading, setLoading] = useState(true);
+    const videoRef = useRef(null);
+    let hls = null;
+
     useEffect(() => {
-      // Laad het M3U-bestand vanuit de public map
-      const fileUrl = "/playlist.m3u";
-      fetch(fileUrl)
-        .then((response) => response.text())
-        .then((content) => {
-          const loadedChannels = parseM3U(content);
-          setChannels(loadedChannels);
-        })
-        .catch((error) => console.error("Fout bij het ophalen van het bestand:", error));
+        const fileUrl = 'playlist.m3u';
+    
+        fetch(fileUrl)
+            .then(response => response.text())
+            .then(content => {
+                const lines = content.split('\n');
+                const loadedChannels = [];
+    
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i].trim();
+    
+                    if (line.startsWith('#EXTINF')) {
+                        const channelName = line.split(',')[1].trim();
+                        const channelUrl = lines[i + 1]?.trim(); // Pak de volgende regel als URL
+    
+                        if (channelUrl && channelUrl.startsWith('http')) {
+                            loadedChannels.push({ name: channelName, url: channelUrl });
+                        }
+                    }
+                }
+    
+                setChannels(loadedChannels); // Update de state met de geladen kanalen
+                setLoading(false); // Zet de loading-status uit
+            })
+            .catch(error => {
+                console.error("Fout bij het ophalen van het bestand:", error);
+                setLoading(false);
+            });
+    
+        return () => {
+            if (hls) {
+                hls.destroy();
+            }
+        };
     }, []);
-  
-    const parseM3U = (content) => {
-      const lines = content.split("\n");
-      const channels = [];
-      let currentChannel = null;
-  
-      lines.forEach((line) => {
-        if (line.startsWith("#EXTINF")) {
-          currentChannel = line.split(",")[1]?.trim();
-        } else if (line.startsWith("http") && currentChannel) {
-          channels.push({ name: currentChannel, url: line.trim() });
-          currentChannel = null;
-        }
-      });
-  
-      return channels;
-    };
-  
+
     const playChannel = (url) => {
-      setCurrentUrl(url);
-    };
-  
-    useEffect(() => {
-      if (currentUrl) {
-        const video = document.getElementById("videoPlayer");
-  
-        // Controleer of de browser HLS ondersteunt
-        if (Hls.isSupported()) {
-          const hls = new Hls();
-          hls.loadSource(currentUrl);
-          hls.attachMedia(video);
-  
-          hls.on(Hls.Events.MANIFEST_PARSED, function () {
-            video.play();
-          });
-  
-          hls.on(Hls.Events.ERROR, function (event, data) {
-            console.error("Fout bij het laden van de stream:", data);
-          });
-  
-          return () => hls.destroy();
-        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-          video.src = currentUrl;
-          video.play();
+        if (hls) {
+            hls.destroy();
         }
-      }
-    }, [currentUrl]);
-  
+
+        if (Hls.isSupported()) {
+            hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(videoRef.current);
+
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                videoRef.current.play();
+            });
+
+            hls.on(Hls.Events.ERROR, function (event, data) {
+                console.error("Fout bij het laden van de stream:", data);
+            });
+        } else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
+            videoRef.current.src = url;
+            videoRef.current.play();
+        }
+    };
+
     return (
-      <div style={{ fontFamily: "Arial, sans-serif", margin: "20px" }}>
-        <h1>IPTV Player</h1>
-        <div
-          id="channelList"
-          style={{
-            maxHeight: "300px",
-            overflowY: "auto",
-            border: "1px solid #ccc",
-            padding: "10px",
-            marginBottom: "20px",
-          }}
-        >
-          {channels.length > 0 ? (
-            channels.map((channel, index) => (
-              <div
-                key={index}
-                className="channel"
-                style={{
-                  margin: "5px 0",
-                  padding: "5px",
-                  border: "1px solid #ddd",
-                  cursor: "pointer",
-                }}
-                onClick={() => playChannel(channel.url)}
-              >
-                {channel.name}
-              </div>
-            ))
-          ) : (
-            <p>Kanalen worden hier geladen...</p>
-          )}
+        <div>
+            <h1>IPTV Player</h1>
+            <div style={{ maxHeight: '300px', overflowY: 'auto', border: '1px solid #ccc', padding: '10px', marginBottom: '20px' }}>
+                {loading ? (
+                    <div>Kanalen worden geladen...</div>
+                ) : channels.length > 0 ? (
+                    channels.map((channel, index) => (
+                        <div key={index} onClick={() => playChannel(channel.url)} style={{ cursor: 'pointer', margin: '5px 0', padding: '5px', border: '1px solid #ddd' }}>
+                            {channel.name}
+                        </div>
+                    ))
+                ) : (
+                    <div>Geen kanalen gevonden in het bestand.</div>
+                )}
+            </div>
+            <video ref={videoRef} controls style={{ width: '100%', maxWidth: '600px' }}>
+                Je browser ondersteunt geen video-afspelen.
+            </video>
         </div>
-        <video
-          id="videoPlayer"
-          controls
-          style={{ width: "100%", maxWidth: "600px", marginTop: "20px" }}
-        >
-          Je browser ondersteunt geen video-afspelen.
-        </video>
-      </div>
     );
-  };
+};
 
 export default IPTVPlayer;
