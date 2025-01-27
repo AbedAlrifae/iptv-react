@@ -5,7 +5,6 @@ const App = () => {
   return (
     <div>
       <IPTVPlayer />
-      <p>Hi</p>
     </div>
   );
 };
