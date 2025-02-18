@@ -1,3 +1,11 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  background-color: var(--white-color);
+}
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,26 +21,99 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+
+  --background-blue-color: #101728;
+  --blue-color: #376893;
+  --light-blue-color: #0c4565;
+  --background-main: #f2f2f2;
+  --move-color: #0a0e18;
+/* Kleuren */
+  --gray-color: #737373;
+  --green-color: #2ab09c; /* Hoofdkleur */
+  --red-color: #5d1303; /* Secundaire kleur */
+  --white-color: #ffffff; /* Achtergrondkleur */
+  --black-color: #1a1a1a; /* Tekstkleur */
+  --link-color: #2196F3; /* Link kleur */
+  --orange-color: #fc7300;
+  --hover-color: #FF5722; /* Hover kleur */
+  --light-grey-color: #1976D2;
+  --border-color: #e1e1e1;
+  /* Fonts */
+  --font-family: 'Arial, sans-serif';
+  --font-size-small: 0.875rem;
+  --font-size-medium: 1rem;
+  --font-size-large: 1.5rem;
+
+  /* Afstand en marges */
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+
+  /* Schatten */
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  /* Grensradius */
+  --border-radius: 8px;
+
+  /* Overgangen */
+  --transition-duration: 0.3s;
+  --transition-ease: ease-in-out;
+}
+
+@font-face {
+  font-family: "gothamrnd_bold";
+  src: url(gothamrnd_bold) format("woff2");
+}
+.main-container {
+  text-align: center;
+  margin: 0 auto;
+  flex: 1;
+  padding: 20px; /* Optioneel, voor wat ruimte rondom de inhoud */
+  min-height: 100vh;
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px auto;
+
+}
+
+
+
+/* Footer
 a {
-  font-weight: 500;
-  color: #646cff;
+  font-weight: 700;
+  color: #770101;
   text-decoration: inherit;
+  font-family: "Noto Sans Arabic", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
-a:hover {
-  color: #535bf2;
-}
+/* a:hover {
+  color: #770101;
+} */
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
 
-h1 {
+h1,
+h2 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+h3{
+  font-family:Arial, Helvetica, sans-serif !important;
+
 }
 
 button {
@@ -45,13 +126,26 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  /* width: 20% !important; */
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #770101;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (max-width: 768px){
+  h2{
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width:769px) and (max-width: 999px){
+  h2{
+    font-size: 2rem;
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -59,10 +153,26 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
-    color: #747bff;
-  }
+ 
   button {
     background-color: #f9f9f9;
   }
+}
+
+a{
+  font-weight: 700;
+}
+
+
+
+
+
+p,
+a,
+li{
+  font-family: "Rubik", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+
 }

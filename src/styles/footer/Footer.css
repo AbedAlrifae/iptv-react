@@ -1,0 +1,101 @@
+/* Basisstijl voor de footer */
+.footer {
+    padding: 20px;
+    background-color: var(--black-color);
+    color: var(--white-color);
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Content stijl */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: right;
+    gap: 20px;
+}
+
+/* Columns */
+.footer-column {
+    flex: 1 1 45%; /* Voor responsiviteit */
+    min-width: 300px;
+    p a{
+        color: var(--white-color);
+        font-weight: bold;
+    }
+}
+
+/* Kopjes in de columns */
+.footer-column h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--dark-blue-color);
+}
+
+/* Lijsten voor snelle links */
+.nav-list_ {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-list_ li {
+    margin-bottom: 10px;
+}
+
+.nav-list_ a {
+    color: var(--white-color);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+    margin: 0;
+}
+
+.nav-list a:hover {
+    color: var(--light-blue-color);
+}
+
+/* Social media sectie */
+.social-icons {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icons a i {
+    font-size: 1.5rem;
+    color: var(--black-color);
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.social-icons a:hover i {
+    transform: scale(1.2);
+    opacity: 0.7;
+}
+
+/* Copyright */
+.footer p {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--white-color);
+}
+
+/* Responsiviteit */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-column {
+        text-align: right;
+    }
+
+    .social-icons {
+        margin-top: 10px;
+    }
+}
