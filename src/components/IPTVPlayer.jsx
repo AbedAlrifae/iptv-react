@@ -52,7 +52,7 @@ const IPTVPlayer = () => {
 
     if (Hls.isSupported()) {
       hls = new Hls();
-      const proxyUrl = `/api/proxy?url=${encodeURIComponent(url)}`; // Dit gebruikt de serverless functie.
+      const proxyUrl = `http://localhost:5173/api/proxy?url=${(url)}`; // Dit gebruikt de serverless functie.
 
       hls.loadSource(proxyUrl);
       hls.attachMedia(videoRef.current);
