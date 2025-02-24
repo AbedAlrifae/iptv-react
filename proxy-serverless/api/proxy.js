@@ -1,4 +1,4 @@
-module.exports = async (req, res) => {
+export default async (req, res) => {
     const url = 'http://m25tv.co/live/Ahmadalokla1997/964188161418/333797.m3u8'; // Het HTTP URL
     const fetch = require('node-fetch');
     
