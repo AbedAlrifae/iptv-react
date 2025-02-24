@@ -52,9 +52,8 @@ const IPTVPlayer = () => {
 
     if (Hls.isSupported()) {
       hls = new Hls();
-      const streamUrl = "https://78.46.107.230:3128/stream/" + encodeURIComponent(url);  // Netlify route
-
-      hls.loadSource(streamUrl);
+      
+      hls.loadSource(url);
       hls.attachMedia(videoRef.current);
 
       hls.on(Hls.Events.MANIFEST_PARSED, function () {
