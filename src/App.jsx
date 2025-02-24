@@ -38,7 +38,7 @@ const App = () => {
         {(isMobile ? <BurgerMenu /> : <DesktopHeader />)}
 <Routes>
 <Route path="*" element={<NotFound />} />
-<Route path='/iptv-react/' element= {<IPTVPlayer/>} />
+<Route path='/' element= {<IPTVPlayer/>} />
 
 </Routes>
 
