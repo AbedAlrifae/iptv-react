@@ -52,8 +52,8 @@ const IPTVPlayer = () => {
 
     if (Hls.isSupported()) {
       hls = new Hls();
-      // const proxyUrl = "http://localhost:5000/proxy/";
-      hls.loadSource(url);
+      const proxyUrl = "90.161.186.147:3128/";
+      hls.loadSource(proxyUrl + url);
       hls.attachMedia(videoRef.current);
 
       hls.on(Hls.Events.MANIFEST_PARSED, function () {
