@@ -32,7 +32,7 @@ const IPTVPlayer = () => {
 
         setChannels(loadedChannels);
         setLoading(false);
-      }) 
+      })
       .catch((error) => {
         console.error("Fout bij het ophalen van het bestand:", error);
         setLoading(false);
@@ -52,8 +52,7 @@ const IPTVPlayer = () => {
 
     if (Hls.isSupported()) {
       hls = new Hls();
-      // const proxyUrl = `/api/proxy?url=${encodeURIComponent(url)}`; // Dit gebruikt de serverless functie.
-
+      // const proxyUrl = "http://localhost:5000/proxy/";
       hls.loadSource(url);
       hls.attachMedia(videoRef.current);
 
