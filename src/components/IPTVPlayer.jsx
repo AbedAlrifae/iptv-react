@@ -32,7 +32,7 @@ const IPTVPlayer = () => {
 
         setChannels(loadedChannels);
         setLoading(false);
-      })
+      }) 
       .catch((error) => {
         console.error("Fout bij het ophalen van het bestand:", error);
         setLoading(false);
