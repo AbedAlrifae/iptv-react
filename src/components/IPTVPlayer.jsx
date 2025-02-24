@@ -52,9 +52,10 @@ const IPTVPlayer = () => {
   
     if (Hls.isSupported()) {
       hls = new Hls();
-      const proxiedUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+      const proxyUrl = "/proxy/";
+const proxiedStream = proxyUrl + url;
   
-      hls.loadSource(proxiedUrl);
+      hls.loadSource(proxiedStream);
       hls.attachMedia(videoRef.current);
   
       hls.on(Hls.Events.MANIFEST_PARSED, function () {
