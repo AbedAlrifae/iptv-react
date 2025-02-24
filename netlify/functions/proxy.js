@@ -1,6 +1,6 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
-exports.handler = async function(event, context) {
+export async function handler(event, context) {
   const url = 'http://m25tv.co/live/Ahmadalokla1997/964188161418/333797.m3u8'; // Het HTTP URL
   
   try {
@@ -20,4 +20,4 @@ exports.handler = async function(event, context) {
       body: 'Error fetching the resource'
     };
   }
-};
+}
