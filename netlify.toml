@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/stream/*"
-  to = "https://iptvfcb.netlify.app/stream/:splat"
+  to = "https://78.46.107.230:3128/stream/:splat"
   status = 200
   force = true
   headers = {X-From = "Netlify"}
