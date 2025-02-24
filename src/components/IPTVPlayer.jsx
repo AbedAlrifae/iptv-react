@@ -24,7 +24,7 @@ const IPTVPlayer = () => {
             const channelName = line.split(",")[1].trim();
             const channelUrl = lines[i + 1]?.trim();
 
-            if (channelUrl && channelUrl.startsWith("https")) {
+            if (channelUrl && channelUrl.startsWith("http")) {
               loadedChannels.push({ name: channelName, url: channelUrl });
             }
           }
@@ -49,19 +49,18 @@ const IPTVPlayer = () => {
     if (hls) {
       hls.destroy();
     }
-
+  
     if (Hls.isSupported()) {
       hls = new Hls();
-      const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-
-    const fullUrl = proxyUrl + url;
-      hls.loadSource(fullUrl);
+      const proxiedUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+  
+      hls.loadSource(proxiedUrl);
       hls.attachMedia(videoRef.current);
-
+  
       hls.on(Hls.Events.MANIFEST_PARSED, function () {
         videoRef.current.play();
       });
-
+  
       hls.on(Hls.Events.ERROR, function (event, data) {
         console.error("Fout bij het laden van de stream:", data);
       });
@@ -70,6 +69,7 @@ const IPTVPlayer = () => {
       videoRef.current.play();
     }
   };
+  
 
   return (
     <div className="iptv-container">
