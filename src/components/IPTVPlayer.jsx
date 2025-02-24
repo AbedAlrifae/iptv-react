@@ -24,7 +24,7 @@ const IPTVPlayer = () => {
             const channelName = line.split(",")[1].trim();
             const channelUrl = lines[i + 1]?.trim();
 
-            if (channelUrl && channelUrl.startsWith("http")) {
+            if (channelUrl && channelUrl.startsWith("https")) {
               loadedChannels.push({ name: channelName, url: channelUrl });
             }
           }
