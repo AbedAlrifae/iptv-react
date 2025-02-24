@@ -61,10 +61,10 @@
   --transition-ease: ease-in-out;
 }
 
-@font-face {
+/* @font-face {
   font-family: "gothamrnd_bold";
   src: url(gothamrnd_bold) format("woff2");
-}
+} */
 .main-container {
   text-align: center;
   margin: 0 auto;
