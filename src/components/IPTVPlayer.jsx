@@ -52,7 +52,8 @@ const IPTVPlayer = () => {
 
     if (Hls.isSupported()) {
       hls = new Hls();
-      hls.loadSource(url);
+      const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+      hls.loadSource(proxyUrl + url);
       hls.attachMedia(videoRef.current);
 
       hls.on(Hls.Events.MANIFEST_PARSED, function () {
